@@ -1,0 +1,76 @@
+/**
+ * 
+ * Qs5. Write a JavaScript function to generate a random number within a range 
+(start, end). 
+ */
+
+function random(start,end){
+    return Math.floor(Math.random()*end)+start;
+}
+
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(1,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));
+console.log(random(9,4));

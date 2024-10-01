@@ -16,4 +16,4 @@ const large = function(arr,number){
     return arrOut;
 }
 
-console.log(large(arr1,5));
+console.log(large(arr1,3));
