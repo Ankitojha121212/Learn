@@ -18,14 +18,22 @@ button.addEventListener("click",()=>{
   li.value = input.value;
 })
 
+ul.addEventListener("click",(event)=>{
+    if(event.target.nodeName == "BUTTON"){
+        let listItem = event.target.parentElement;
+        console.log(listItem);
+        listItem.remove();
+        console.log("Button clicked")
+    }
+})
 
-let deleteButton = document.querySelectorAll('.delete');
-for(del of deleteButton){
-    del.addEventListener('click',()=>{
+// let deleteButton = document.querySelectorAll(".delete");
+// // for(dels of deleteButton){
+//     deleteButton.addEventListener('click',()=>{
 
-        let par = this.parentElement;
-        par.remove();
-        console.log(par);
-        console.log("Button Deleted");
-    })
-}
+//         let para = deleteButton.parentElement;
+//         console.log(para);
+//         console.log("Button Deleted");
+//         para.remove();
+//     })
+// // }
