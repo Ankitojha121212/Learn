@@ -1,1 +1,0 @@
-alert("Jai Shree Ram");
