@@ -1,0 +1,1 @@
+let someValue = require('./math.js');
