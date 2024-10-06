@@ -32,6 +32,22 @@ app.get("*",(req,res)=>{
 
 // for post Request
 
-app.post("/",(req,res)=>{
-    res.send("You are on root path with post request!!");
+// app.post("/",(req,res)=>{
+//     res.send("You are on root path with post request!!");
+// })
+
+
+
+///////////////////////////////  
+// Path parameters
+
+// app.get("/:username/:id",(req,res)=>{
+//     console.log(req.params);
+//     res.send(`hello @${username}.`);
+// })
+
+app.get("/:username/:id",(req,res)=>{
+    let {username,id} = req.params;
+    res.send(`hello @${username} with id : ${id}.`);
+    console.log(req.params);
 })
