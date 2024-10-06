@@ -15,6 +15,12 @@ app.get("/help",(req,res)=>{
     res.send("How can i help You  <button>Click here for help</button>")
 })
 
+
+// creating the Random dice number response
+app.get("/rolldice",(req,res)=>{
+    let diceVal = Math.floor(Math.random()*6)+1;
+    res.render("rolldice.ejs",{diceVal});
+})
 app.listen(port,()=>{
     console.log(`Server Started on port : ${port}`);
 })
