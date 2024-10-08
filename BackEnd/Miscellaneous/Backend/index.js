@@ -14,7 +14,9 @@ app.get("/register" ,(req,res)=>{
 app.post("/register" ,(req,res)=>{
 
     console.log(req.body);  // without middleware or without pre Express recoginition we can not access the req.body data for that we have to predefine the type of data format and urldata endcoded type
-    res.send("Standard Post response");
+
+    let {username,password} = req.body;
+    res.send(`Standard Post response ${username}`);
 })
 
 

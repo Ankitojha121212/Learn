@@ -1,0 +1,10 @@
+body{
+    background-color: pink;
+}
+
+div{
+    background-color: lightblue;
+    border: 1px solid black;
+    height: 300px;
+    width : 800px;
+}
