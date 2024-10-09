@@ -18,6 +18,7 @@ app.get("/help",(req,res)=>{
 
 // creating the Random dice number response
 app.get("/rolldice",(req,res)=>{
+    
     let diceVal = Math.floor(Math.random()*6)+1;
     res.render("rolldice.ejs",{diceVal});
 })
