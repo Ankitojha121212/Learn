@@ -1,0 +1,19 @@
+body{
+    background-color: gray;
+    margin-left: 30px;
+    
+}
+div{
+    margin-bottom: 10px;
+}
+.chat-box{
+    background-color: lightblue;
+    border: 1px solid green;
+    border-radius: 5px;
+    display: inline-block;
+}
+.message-box{
+    background-color: rgb(62, 62, 194);
+    font-weight: 700px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
