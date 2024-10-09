@@ -23,3 +23,24 @@ const userSchema = new Schema({
 });
 
 const User = mongoose.model("User",userSchema);
+
+
+/// inserting Data
+
+const user1 = new User({
+    name : "Ankit",
+    age : 21,
+    gender : "Male",
+});
+const user2 = new User({
+    name : "Eve",
+    gender : "Female",
+    age : 22.
+})
+
+user1.save();
+user2.save().then((res)=>{
+    console.log(res);
+}).catch((err) =>{
+    console.log(err);
+});
