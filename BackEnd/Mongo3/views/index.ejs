@@ -19,6 +19,14 @@
 
             </div>
             <p>Received by  : <i><%= chat.to %></i></p>
+            <hr/>
+            <%= chat.created_at.toString().split(" ").slice(0,4).join(" ") %><br>
+            <%= chat.created_at.toString().split(" ")[0] %><br>
+            <%= chat.created_at.toString().split(" ")[1] %><br>
+            <%= chat.created_at.toString().split(" ")[2] %><br>
+            <%= chat.created_at.toString().split(" ")[3] %><br>
+            <%= chat.created_at.toString().split(" ")[4] %><br>
+            <%= chat.created_at.toString().split(" ")[5] %><br>
         </div>
         <br>
         <br>

@@ -52,14 +52,20 @@ app.get("/chats/new",(req,res)=>{
 app.post("/chats",(req,res)=>{
    let {from,to,message} = req.body;
 
-   let newChat = {
+   let newChat = new Chat ({
     from : from,
     to : to,
     message : message,
     created_at : new Date(),
-   }
+   });
 
-   console.log(newChat);
+   newChat.save().then(()=>{
+    console.log("Chat saved");
+   }).catch((err)=>{
+    console.log(err);
+   });
+
+   res.redirect("/chats");
 })
 
 
