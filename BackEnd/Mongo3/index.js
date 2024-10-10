@@ -40,6 +40,11 @@ app.get("/chats", async (req,res)=>{
    res.render("index.ejs",{chats});
 })
 
+//new route
+app.get("/chats/new",(req,res)=>{
+    res.render("new.ejs");
+})
+
 
 app.listen(port , ()=>{
     console.log("Server started at port : ",port);
