@@ -13,6 +13,11 @@
     <p>description : <%= listing.description %> </p>
     <p>Location : <%= listing.location %> </p>
     <p>country : <%= listing.country %> </p>
+    <a href="/listings/<%= listing._id %>/edit"><button>Edit</button></a>
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+        <button>Delete</button>
+    </form>
     
 </body>
 </html>
