@@ -7,18 +7,16 @@ const listingSchema = new Schema({
         required : true,
         maxLength : 50,
     },
-    Description : {
+    description : {
         type : String,
-        required : true,
-        minLength : 5,
     },
     image : {
         type : String,
-        set : (v) => v === "" ? "https://unsplash.com/photos/sunloungers-fronting-buildings-near-mountain-DGa0LQ0yDPc" : v
+        default : "https://unsplash.com/photos/sunloungers-fronting-buildings-near-mountain-DGa0LQ0yDPc",
+        set : (v) => v === "" ? "https://unsplash.com/photos/sunloungers-fronting-buildings-near-mountain-DGa0LQ0yDPc" : v,
     },
     price : {
         type : Number,
-        required : true,
 
     },
     location : {

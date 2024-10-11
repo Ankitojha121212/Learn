@@ -20,15 +20,15 @@ app.get("/",(req,res)=>{
 })
 
 // listing
-app.get("/testListing",(req,res)=>{
+app.get("/testListing", async (req,res)=>{
     const sampleListing = new Listing({
-        title : "Flat in Jaipur",
-        description : "Best flat 1 BHK for couple and family on 4th floor with best view and fresh oxygen",
-        price : 5000,
-        location : "Jaipur",
+        title : "Noida me villa",
+        description : "Ye h Noida ka Villa jo kr deta h Sbko Gilla, mat krna iska paani pila pila < Samjhe rangila >",
+        price : 50000,
+        location : "Noida",
         country : "India"
     });
-    sampleListing.save();
+  await  sampleListing.save();
     console.log("sample data saved");
     res.send("TestListing working");
 })
