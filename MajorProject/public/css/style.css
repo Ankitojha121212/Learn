@@ -1,5 +1,7 @@
 
-
+body{
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+}
 /** Navbar **/
 
 .navbar{
@@ -11,4 +13,66 @@
 }
 .nav-link{
     color: #222222 !important;
+}
+
+/**  Footer **/
+
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+
+.f-info-social i{
+    font-size: 1.2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+}
+.f-info-social i:hover{
+    color:burlywood;
+}
+.f-info-links,.f-info-social{
+    width: 100%;
+}
+.f-info{
+    height: 8rem;
+    display: flex;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items:space-evenly;
+    text-align: center;
+}
+
+
+/* card */
+.card{
+    border: none !important;
+    margin-bottom: 2rem;
+}
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover  !important;
+}
+.card-body{
+    padding: 0;
+    margin: 0;
+}
+.card-text{
+    font-weight: 500 !important;
+}
+#index-anchor{
+    text-decoration: none !important;
+}
+
+/* card effect */
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
 }
