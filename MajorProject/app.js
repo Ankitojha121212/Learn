@@ -46,13 +46,30 @@ app.post("/listings",
     wrapAsync(async(req,res,next)=>{
         if(! req.body.listing){
             throw new ExpressError(400 , "Send valid data for listing..")
-        }else{
+        }
+
             let newListing = new Listing(req.body.listing);
+
+        if(! newListing.title){
+            throw new ExpressError(400, "Title is missing!!");
+        }else if(! newListing.description){
+            throw new ExpressError(400,"Description is missing!!");
+        }else if(! newListing.price){
+            throw new ExpressError(400,"Price is missing!!");
+        }else if(! newListing.location){
+            throw new ExpressError(400,"Location is missing!!");
+        }else if(! newListing.country){
+            throw new ExpressError(400,"Country is missing!!");
+        }
+
+        
             await newListing.save();
             res.redirect("/listings");
-            }
 
-        })
+        }
+
+
+)
 );
 
 //update route
