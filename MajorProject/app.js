@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError.js");
+const listingSchema = require('./schema.js');
 
 app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
@@ -27,6 +28,18 @@ main().then(()=>{
     console.log(err);
 })
 
+
+/// making server side validator function for validating the listing information from server side by joi
+function validateListing(req,res,next){
+    let {error} = listingSchema.validate(req.body);
+    if(error){
+        let errMsg = error.details.map((e)=>el.message).join(',');
+        throw new ExpressError(400, error);
+    }else{
+        next();
+    }
+}
+
 app.get("/",(req,res)=>{
     res.send("On root page");
 })
@@ -42,27 +55,29 @@ app.get("/listings/new",(req,res)=>{
     res.render("listings/new.ejs");
 })
 //new route listing creation
-app.post("/listings", 
+app.post("/listings", validateListing, 
     wrapAsync(async(req,res,next)=>{
-        if(! req.body.listing){
-            throw new ExpressError(400 , "Send valid data for listing..")
-        }
-
-            let newListing = new Listing(req.body.listing);
-
-        if(! newListing.title){
-            throw new ExpressError(400, "Title is missing!!");
-        }else if(! newListing.description){
-            throw new ExpressError(400,"Description is missing!!");
-        }else if(! newListing.price){
-            throw new ExpressError(400,"Price is missing!!");
-        }else if(! newListing.location){
-            throw new ExpressError(400,"Location is missing!!");
-        }else if(! newListing.country){
-            throw new ExpressError(400,"Country is missing!!");
-        }
+        // if(! req.body.listing){
+        //     throw new ExpressError(400 , "Send valid data for listing..")
+        // }
 
         
+        // if(! newListing.title){
+            //     throw new ExpressError(400, "Title is missing!!");
+        // }else if(! newListing.description){
+        //     throw new ExpressError(400,"Description is missing!!");
+        // }else if(! newListing.price){
+        //     throw new ExpressError(400,"Price is missing!!");
+        // }else if(! newListing.location){
+            //     throw new ExpressError(400,"Location is missing!!");
+            // }else if(! newListing.country){
+                //     throw new ExpressError(400,"Country is missing!!");
+                // }
+                
+              
+                
+                
+                let newListing = new Listing(req.body.listing);
             await newListing.save();
             res.redirect("/listings");
 
@@ -82,7 +97,7 @@ app.get("/listings/:id/edit",
 );
 
 // edit route
-app.put("/listings/:id",
+app.put("/listings/:id", validateListing,
     wrapAsync(async (req,res)=>{
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id,{...req.body.listing});
@@ -100,7 +115,7 @@ app.get("/listings/:id", wrapAsync(async(req,res)=>{
 );
 
 // Delete Listing
-app.delete("/listings/:id", 
+app.delete("/listings/:id", validateListing,
     wrapAsync(async(req,res)=>{
     let {id} = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);
