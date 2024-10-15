@@ -8,7 +8,9 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError.js");
-const listingSchema = require('./schema.js');
+const {listingSchema,reviewSchema} = require('./schema.js');
+const Review = require("./models/review.js");
+
 
 app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
@@ -40,6 +42,18 @@ function validateListing(req,res,next){
     }
 }
 
+// / making server side validator function for validating the review information from the server side by joi
+function validateReview(req,res,next){
+    let {error} = reviewSchema.validate(req.body);
+    if(error){
+        let errMsg = error.details.map((e)=> el.message).join(',');
+        throw new ExpressError(400,error);
+        
+    }else{
+        next();
+    }
+}
+
 app.get("/",(req,res)=>{
     res.send("On root page");
 })
@@ -55,11 +69,11 @@ app.get("/listings/new",(req,res)=>{
     res.render("listings/new.ejs");
 })
 //new route listing creation
-app.post("/listings", validateListing, 
+app.post("/listings", validateListing,
     wrapAsync(async(req,res,next)=>{
         // if(! req.body.listing){
-        //     throw new ExpressError(400 , "Send valid data for listing..")
-        // }
+            //     throw new ExpressError(400 , "Send valid data for listing..")
+            // }
 
         
         // if(! newListing.title){
@@ -67,7 +81,7 @@ app.post("/listings", validateListing,
         // }else if(! newListing.description){
         //     throw new ExpressError(400,"Description is missing!!");
         // }else if(! newListing.price){
-        //     throw new ExpressError(400,"Price is missing!!");
+            //     throw new ExpressError(400,"Price is missing!!");
         // }else if(! newListing.location){
             //     throw new ExpressError(400,"Location is missing!!");
             // }else if(! newListing.country){
@@ -83,7 +97,7 @@ app.post("/listings", validateListing,
 
         }
 
-
+        
 )
 );
 
@@ -97,11 +111,12 @@ app.get("/listings/:id/edit",
 );
 
 // edit route
-app.put("/listings/:id", validateListing,
+app.put("/listings/:id", 
     wrapAsync(async (req,res)=>{
-    let {id} = req.params;
+        let {id} = req.params;
     await Listing.findByIdAndUpdate(id,{...req.body.listing});
     res.redirect(`/listings/${id}`);
+    
 })
 );
 
@@ -115,14 +130,32 @@ app.get("/listings/:id", wrapAsync(async(req,res)=>{
 );
 
 // Delete Listing
-app.delete("/listings/:id", validateListing,
+app.delete("/listings/:id",
     wrapAsync(async(req,res)=>{
-    let {id} = req.params;
+        let {id} = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);
     console.log(deletedListing);
     res.redirect("/listings");
 })
 );
+/////////// //////////////////// Review route
+app.post("/listings/:id/reviews",validateReview,wrapAsync(async (req,res)=>{
+    let {id} = req.params;
+   let listing = await Listing.findById(id);
+   let newReview = new Review(req.body.review);
+
+   listing.reviews.push(newReview);
+
+   await newReview.save();
+   await listing.save();
+
+//    console.log(newReview);
+//    console.log(listing);
+   res.redirect(`/listings/${id}`);
+
+
+
+})); 
 
 // // test listing
 // app.get("/testListing", async (req,res)=>{
