@@ -50,17 +50,22 @@
 
        <hr/>
        <p><b>All Reviews</b></p>
-
-       <% for(review of listing.reviews)  { %>
-        <div class="card mb-3 ms-2" style="width: 40%;">
-            <div class="card-body">
-                <h5 class="card-title">Username</h5>
-                <h6 class="card-subtitle mb-2 text-muted"><%= review.rating %></h6>
-                <p class="card-text ml-3"><b><%= review.comment %> </b></p>
-
+       <div>
+           <% for(review of listing.reviews)  { %>
+            <div class="card mb-3 ms-3" style="width: 45%;">
+                <div class="card-body">
+                    <h5 class="card-title">@Username</h5>
+                    <p class="card-text"><b><%= review.comment %> </b></p>
+                    <h6 class="card-text mb-2 text-muted"><b><%= review.rating %> Star</b></h6>
+                    
+                    
+                    <form class="mb-3 ml-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                        <button class="btn btn-dark btn-sm">Delete</button>
+                    </form>
+                </div>
             </div>
+            <% } %>
         </div>
-        <% } %>
   
             
 </div>

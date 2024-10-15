@@ -109,3 +109,11 @@ body{
     padding-left: 0;
     padding-right: 0;
 }
+
+ /* Review section */
+ .review-border{
+    border-radius: 5px !important;
+ }
+ .ml-3{
+    margin-left: 3 !important;
+ }
