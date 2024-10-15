@@ -123,7 +123,7 @@ app.put("/listings/:id",
 // show route
 app.get("/listings/:id", wrapAsync(async(req,res)=>{
     let {id} = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs",{listing});
 
 })

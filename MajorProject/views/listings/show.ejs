@@ -7,7 +7,7 @@
         <div class="col-8 offset-3">
     <h1> <b><%= listing.title %></b></h1>
             </div>
-    <div class="card col-6 offset-3  show-card" >
+    <div class="card col-6 offset-3  show-card listing-card" >
         <img src="<%= listing.image %>" class="card-img-top show-image" alt="listing_image">
         <div class="card-body">
     <p class="card-text">
@@ -49,9 +49,18 @@
        </div>
 
        <hr/>
-       <h3>All Reviews</h3>
-       <p><%= listing.reviews %></p>
-      
+       <p><b>All Reviews</b></p>
+
+       <% for(review of listing.reviews)  { %>
+        <div class="card mb-3 ms-2" style="width: 40%;">
+            <div class="card-body">
+                <h5 class="card-title">Username</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%= review.rating %></h6>
+                <p class="card-text ml-3"><b><%= review.comment %> </b></p>
+
+            </div>
+        </div>
+        <% } %>
   
             
 </div>
