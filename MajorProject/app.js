@@ -14,6 +14,12 @@ const reviews = require('./routes/review.js');
 const session = require('express-session');
 const flash = require('connect-flash');
 
+const passport = require('passport');
+const LocalStrategy = require("passport-local");
+const User= require('./models/user.js');
+const { register } = require('module');
+
+
 
 
 
@@ -45,6 +51,18 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 app.use(flash());
+
+// Authentication 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
@@ -90,7 +108,16 @@ app.get("/",(req,res)=>{
 })
 
 
+app.get("/demouser",async(req,res)=>{
+    let fakeUser = new User({
+        email : "StudyCollage@gmail.com",
+        username : "Alpha kumar"
+    });
 
+    let registeredUser = await User.register("fakeUser","Ramtajogi");
+    res.send(registeredUser);
+    
+})
 
 
 ///// all type of Wrong routes Error handling
