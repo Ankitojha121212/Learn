@@ -69,7 +69,7 @@ app.use((req,res,next)=>{
 
 // Connecting the routes files with Main file
 app.use("/listings",listings);
-app.use("/listings/:id/review",reviews);
+app.use("/listings/:id/reviews",reviews);
 
 
 
