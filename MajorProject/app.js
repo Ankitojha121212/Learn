@@ -1,3 +1,6 @@
+
+// Requireing the essential things for my project
+
 const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
@@ -8,15 +11,69 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const listings = require('./routes/listing.js');
 const reviews = require('./routes/review.js');
+const session = require('express-session');
+const flash = require('connect-flash');
+
+
+
+
+
+
+
+///// Built In Middlewares
 app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
 app.set("view engine", "ejs");
 app.set("views",path.join(__dirname,"views"));
-
 app.use(express.static(path.join(__dirname,"/public")))
-
 app.use(express.urlencoded({extended : true}));
 
+
+
+/////  Session usage
+const sessionOptions = {
+    secret : "MySecretCodeString",
+    resave : false,
+    saveUninitialized : true,
+    cookie : {
+
+        expires : Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge : 7 * 24 * 60 * 60 * 1000,
+        httpOnly : true,
+            },
+    };
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req,res,next)=>{
+    res.locals.success = req.flash("success");
+    next();
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Connecting the routes files with Main file
+app.use("/listings",listings);
+app.use("/listings/:id/review",reviews);
+
+
+
+///// connection of mongoDB Database
 async function main(){
     await mongoose.connect(mongoUrl);
 }
@@ -27,30 +84,16 @@ main().then(()=>{
 })
 
 
-
+////// Some rendering and routes process
 app.get("/",(req,res)=>{
     res.send("On root page");
 })
 
 
-app.use("/listings",listings);
-app.use("/listings/:id/review",reviews);
 
 
-// // test listing
-// app.get("/testListing", async (req,res)=>{
-//     const sampleListing = new Listing({
-//         title : "Noida me villa",
-//         description : "Ye h Noida ka Villa jo kr deta h Sbko Gilla, mat krna iska paani pila pila < Samjhe rangila >",
-//         price : 50000,
-//         location : "Noida",
-//         country : "India"
-//     });
-//   await  sampleListing.save();
-//     console.log("sample data saved");
-//     res.send("TestListing working");
-// })
 
+///// all type of Wrong routes Error handling
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found !!!!!"));
 });
@@ -60,6 +103,7 @@ app.use((err,req,res,next)=>{
     res.status(statusCode).render("error.ejs",{message});
 });
 
+// listen of server at port number;
 app.listen(8080,()=>{
     console.log("Server started");
 })

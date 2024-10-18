@@ -30,29 +30,11 @@ router.get("/", wrapAsync(async (req,res)=>{
  //new route listing creation
  router.post("/", validateListing,
      wrapAsync(async(req,res,next)=>{
-         // if(! req.body.listing){
-             //     throw new ExpressError(400 , "Send valid data for listing..")
-             // }
- 
-         
-         // if(! newListing.title){
-             //     throw new ExpressError(400, "Title is missing!!");
-         // }else if(! newListing.description){
-         //     throw new ExpressError(400,"Description is missing!!");
-         // }else if(! newListing.price){
-             //     throw new ExpressError(400,"Price is missing!!");
-         // }else if(! newListing.location){
-             //     throw new ExpressError(400,"Location is missing!!");
-             // }else if(! newListing.country){
-                 //     throw new ExpressError(400,"Country is missing!!");
-                 // }
-                 
-               
-                 
-                 
-                 let newListing = new Listing(req.body.listing);
-             await newListing.save();
-             res.redirect("/");
+
+         let newListing = new Listing(req.body.listing);
+         await newListing.save();
+         req.flash("success","New Listing Created");
+         res.redirect("/listings");
  
          }
  
@@ -74,7 +56,8 @@ router.get("/", wrapAsync(async (req,res)=>{
      wrapAsync(async (req,res)=>{
          let {id} = req.params;
      await Listing.findByIdAndUpdate(id,{...req.body.listing});
-     res.redirect(`/${id}`);
+     req.flash("success","Listing Updated!!");
+     res.redirect(`/listings/${id}`);
      
  })
  );
@@ -94,7 +77,10 @@ router.get("/", wrapAsync(async (req,res)=>{
          let {id} = req.params;
      const deletedListing = await Listing.findByIdAndDelete(id);
      console.log(deletedListing);
-     res.redirect("/");
+
+     req.flash("success","Listing Deleted !!");
+
+     res.redirect("/listings");
  })
  );
 
