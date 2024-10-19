@@ -111,16 +111,16 @@ app.get("/",(req,res)=>{
 })
 
 
-app.get("/demouser",async(req,res)=>{
-    let fakeUser = new User({
-        email : "StudyCollage@gmail.com",
-        username : "Alpha kumar"
-    });
+// app.get("/demouser",async(req,res)=>{
+//     let fakeUser = new User({
+//         email : "StudyCollage@gmail.com",
+//         username : "Alpha kumar"
+//     });
 
-    let registeredUser = await User.register(fakeUser,"Ramtajogi");
-    res.send(registeredUser);
+//     let registeredUser = await User.register(fakeUser,"Ramtajogi");
+//     res.send(registeredUser);
 
-})
+// })
 
 
 ///// all type of Wrong routes Error handling
