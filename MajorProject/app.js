@@ -9,8 +9,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
-const listings = require('./routes/listing.js');
-const reviews = require('./routes/review.js');
+
 const session = require('express-session');
 const flash = require('connect-flash');
 
@@ -21,6 +20,9 @@ const { register } = require('module');
 
 
 
+const listingsRouter = require('./routes/listing.js');
+const reviewsRouter = require('./routes/review.js');
+const userRouter = require('./routes/user.js');
 
 
 
@@ -86,8 +88,9 @@ app.use((req,res,next)=>{
 
 
 // Connecting the routes files with Main file
-app.use("/listings",listings);
-app.use("/listings/:id/reviews",reviews);
+app.use("/listings",listingsRouter);
+app.use("/listings/:id/reviews",reviewsRouter);
+app.use("/",userRouter);
 
 
 
@@ -114,9 +117,9 @@ app.get("/demouser",async(req,res)=>{
         username : "Alpha kumar"
     });
 
-    let registeredUser = await User.register("fakeUser","Ramtajogi");
+    let registeredUser = await User.register(fakeUser,"Ramtajogi");
     res.send(registeredUser);
-    
+
 })
 
 
