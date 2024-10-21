@@ -9,16 +9,18 @@ const Listing = require("../models/listing");
 const listingController = require("../controllers/listings.js");
 
 const multer = require("multer");
-const upload = multer({dest : 'uploads/'});
+const cloudinary = require('cloudinary');
+const {storage} = require('../cloudConfig.js');
+const upload = multer({storage});
 
 ////////// for index page route
 router
     .route('/')
         .get(wrapAsync(listingController.index)) // for index route
-        // .post(validateListing, wrapAsync(listingController.createNewListing));//new route listing creation
-        .post( upload.single('listing[image]'),(req,res)  =>{
-            res.send(req.file);
-        })
+        .post(
+            upload.single('listing[image]'),
+            validateListing,
+            wrapAsync(listingController.createNewListing));//new route listing creation
 
 
   // new route for creating the new listing
