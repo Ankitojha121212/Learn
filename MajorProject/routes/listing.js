@@ -34,6 +34,8 @@ router
     .route("/:id")
         .put(
              isLoggedIn,
+             isOwner,
+             upload.single('listing[image]'),
              wrapAsync(listingController.updateListingDetails))// edit route
         .get( wrapAsync(listingController.showListing)) // show route
         .delete( isLoggedIn , isOwner,
@@ -41,7 +43,8 @@ router
         
  
  //update route
- router.get("/:id/edit", isLoggedIn,
+ router.get("/:id/edit", 
+    isLoggedIn,
     isOwner,
      wrapAsync(listingController.renderUpdateForm));
  
