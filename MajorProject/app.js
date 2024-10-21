@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != 'production'){
+    require('dotenv').config();
+};
+
 
 // Requireing the essential things for my project
 
@@ -9,6 +13,9 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+
+const multer = require("multer");
+const upload = multer({dest : 'uploads/'});
 
 const session = require('express-session');
 const flash = require('connect-flash');
