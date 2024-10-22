@@ -8,7 +8,12 @@ if(process.env.NODE_ENV != 'production'){
 const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
-const mongoUrl = "mongodb://127.0.0.1/wonderlust";
+
+
+const dbUrl = process.env.ATLASDB_URL;
+
+
+
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -18,6 +23,8 @@ const multer = require("multer");
 const upload = multer({dest : 'uploads/'});
 
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
 const flash = require('connect-flash');
 
 const passport = require('passport');
@@ -44,10 +51,24 @@ app.use(express.static(path.join(__dirname,"/public")))
 app.use(express.urlencoded({extended : true}));
 
 
+const store = MongoStore.create({
+    mongoUrl : dbUrl,
+    crypto : {
+        secret : process.env.SECRETE,
+    },
+    touchAfter : 24 * 3600,
+
+
+});
+
+store.on("error" ,()=>{
+    console.log("ERROR IN MONGO SESSION STORE : ",err);
+});
 
 /////  Session usage
 const sessionOptions = {
-    secret : "MySecretCodeString",
+    store,
+    secret : process.env.SECRETE,
     resave : false,
     saveUninitialized : true,
     cookie : {
@@ -57,6 +78,7 @@ const sessionOptions = {
         httpOnly : true,
             },
     };
+
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -104,7 +126,7 @@ app.use("/",userRouter);
 
 ///// connection of mongoDB Database
 async function main(){
-    await mongoose.connect(mongoUrl);
+    await mongoose.connect(dbUrl);
 }
 main().then(()=>{
     console.log("DB Connected");
