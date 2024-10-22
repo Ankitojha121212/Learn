@@ -30,7 +30,7 @@ module.exports.renderUpdateForm = async(req,res)=>{
        res.redirect("/listings");
     }else{
         let originalImageURL = listing.image.url;
-       originalImageURL =  originalImageURL.replace("/upload","/upload/w_250")
+       originalImageURL =  originalImageURL.replace("/upload","/upload/w_250");
         res.render("listings/edit.ejs",{listing,originalImageURL});
 
     }

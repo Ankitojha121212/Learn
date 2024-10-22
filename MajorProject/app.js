@@ -113,10 +113,10 @@ main().then(()=>{
 })
 
 
-////// Some rendering and routes process
-app.get("/",(req,res)=>{
-    res.send("On root page");
-})
+// ////// Some rendering and routes process
+// app.get("/",(req,res)=>{
+//     res.redirect("/");
+// })
 
 
 // app.get("/demouser",async(req,res)=>{
