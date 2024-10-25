@@ -135,24 +135,6 @@ main().then(()=>{
 })
 
 
-// ////// Some rendering and routes process
-// app.get("/",(req,res)=>{
-//     res.redirect("/");
-// })
-
-
-// app.get("/demouser",async(req,res)=>{
-//     let fakeUser = new User({
-//         email : "StudyCollage@gmail.com",
-//         username : "Alpha kumar"
-//     });
-
-//     let registeredUser = await User.register(fakeUser,"Ramtajogi");
-//     res.send(registeredUser);
-
-// })
-
-
 ///// all type of Wrong routes Error handling
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found !!!!!"));
