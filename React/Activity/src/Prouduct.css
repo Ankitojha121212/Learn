@@ -1,0 +1,10 @@
+
+.product-card{
+    border: 1px solid white;
+    padding: 10px 20px 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    margin-left: 15px;
+    width: 250px;
+    height: 200px;
+}
